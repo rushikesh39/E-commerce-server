@@ -50,5 +50,8 @@ const login = async (req, res) => {
     return res.send({ msg: "user Not exist" });
   }
 };
+const cart=(req,res)=>{
+  res.send({})
+}
 
-module.exports = { login, register };
+module.exports = { login, register,cart};
