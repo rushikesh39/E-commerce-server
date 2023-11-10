@@ -103,7 +103,8 @@ async function watches(req, res) {
 async function search(req, res) {
   try {
     const details=req.body;
-    const result = await Product.find({"product_name": { $regex: new RegExp(details, 'i')}});
+    const product_name=details.product_name;
+    const result = await Product.find({"product_name": { $regex: new RegExp(product_name, 'i')}});
     res.send({ products: result });
   } catch (e) {
     res.send({"error":e});
