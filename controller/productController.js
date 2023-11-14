@@ -56,7 +56,7 @@ async function home(req, res) {
 }
 async function mobile(req, res) {
   try {
-    const result = await Product.find({"product_category_tree":"mobile"}).limit(80);
+    const result = await Product.find({"product_category_tree":"mobile"}).limit(200);
     res.send({ products: result });
   } catch (e) {
     res.send("error");
