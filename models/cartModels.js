@@ -2,9 +2,9 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-    "id":{type:String},
+    
    "email":{type:String},
-   "order_count":{type:Number}
+   "products":{type:Array},
 });
 
 const cart= mongoose.model('cart', productSchema);

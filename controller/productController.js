@@ -5,17 +5,13 @@ const Product=require("../models/productModels")
 async function insert_Cart_details(req, res) {
   try {
     const details = req.body;
-
-    // Check if the cart already exists for the given email and id
-    const existingCart = await Cart.findOne({ "email": details.email, "id": details.id });
+    const existingCart = await Cart.findOne({ "email": details.email});
     console.log("already exist", existingCart);
 
     if (existingCart) {
       // If the cart exists, update the order_count by 1
       const updatedCart = await Cart.updateOne(
-        { "email": details.email, "id": details.id },
-        { $inc: { "order_count": 1 } }
-      );
+        { "email": details.email},{$set:{ "products": details.products } });
       console.log("updated", updatedCart);
       return res.send("cart updated")
     } else {
@@ -33,12 +29,18 @@ async function insert_Cart_details(req, res) {
 
 async function find_Cart_details(req, res) {
   try {
-    const details=req.body;
-    console.log("cart details",details)
-    const result=await Cart.find({"email":details.email})
-    res.send({"data ":result})
-  } catch (e) {
-    res.send("error",e);
+    const data= req.query;
+    console.log(data)
+    const userCart = await Cart.findOne({"email":data.email });
+
+    if (userCart) {
+      res.status(200).json({ cart: userCart });
+    } else {
+      res.status(404).json({ message: 'Cart not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching cart:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 }
 async function home(req, res) {
@@ -54,7 +56,7 @@ async function home(req, res) {
 }
 async function mobile(req, res) {
   try {
-    const result = await Product.find({"product_category_tree":"mobile"}).limit(100);
+    const result = await Product.find({"product_category_tree":"mobile"}).limit(80);
     res.send({ products: result });
   } catch (e) {
     res.send("error");
@@ -102,8 +104,8 @@ async function watches(req, res) {
 }
 async function search(req, res) {
   try {
-    const details=req.body;
-    const product_name=details.product_name;
+    const product_name = req.query.product_name;
+    console.log("product name",product_name)
     const result = await Product.find({"product_name": { $regex: new RegExp(product_name, 'i')}});
     res.send({ products: result });
   } catch (e) {

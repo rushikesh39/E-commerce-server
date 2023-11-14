@@ -12,6 +12,6 @@ router.get("/footwear",footwear)
 router.get("/watches",watches)
 router.get("/search",search)
 router.post("/insert_cart_data",insert_Cart_details)
-router.get("/get_cart_details",find_Cart_details)
+router.get("/cartdetails",find_Cart_details)
 
 module.exports=router
