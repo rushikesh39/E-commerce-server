@@ -5,13 +5,14 @@ const Product=require("../models/productModels")
 async function insert_Cart_details(req, res) {
   try {
     const details = req.body;
+    console.log("details",details)
     const existingCart = await Cart.findOne({ "email": details.email});
     console.log("already exist", existingCart);
 
     if (existingCart) {
       // If the cart exists, update the order_count by 1
       const updatedCart = await Cart.updateOne(
-        { "email": details.email},{$set:{ "products": details.products } });
+        { "email": details.email},{$set:{ "products": details.product } });
       console.log("updated", updatedCart);
       return res.send("cart updated")
     } else {
