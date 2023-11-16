@@ -46,10 +46,10 @@ async function find_Cart_details(req, res) {
 }
 async function home(req, res) {
   try {
-    const mobile = await Product.find({"product_category_tree":"mobile"}).limit(10);
+    const mobile = await Product.find({"product_category_tree":"mobile"}).limit(5);
     const laptop = await Product.find({"product_category_tree":"laptop"}).limit(5);
-    const jewellary = await Product.find({"product_category_tree": { $regex: new RegExp("Jewellery", 'i')}}).limit(4);
-    const watches = await Product.find({"product_category_tree": { $regex: new RegExp("Watches", 'i')}}).limit(4);
+    const jewellary = await Product.find({"product_category_tree": { $regex: new RegExp("Jewellery", 'i')}}).limit(5);
+    const watches = await Product.find({"product_category_tree": { $regex: new RegExp("Watches", 'i')}}).limit(5);
     res.send({mobile:mobile,laptop:laptop,jewellary:jewellary,watches });
   } catch (e) {
     res.send("error");
