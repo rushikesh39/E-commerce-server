@@ -57,7 +57,7 @@ async function home(req, res) {
 }
 async function mobile(req, res) {
   try {
-    const result = await Product.find({"product_category_tree":"mobile"}).limit(150);
+    const result = await Product.find({"product_category_tree":"mobile"}).limit(150).skip(5);
     res.send({ products: result });
   } catch (e) {
     res.send("error");
@@ -65,7 +65,7 @@ async function mobile(req, res) {
 }
 async function computer(req, res) {
   try {
-    const result = await Product.find({"product_category_tree": { $regex: new RegExp("laptop", 'i')}}).limit(100).skip(7);
+    const result = await Product.find({"product_category_tree": { $regex: new RegExp("laptop", 'i')}}).limit(100).skip(5);
     res.send({ products: result });
   } catch (e) {
     res.send("error");
@@ -73,7 +73,7 @@ async function computer(req, res) {
 }
 async function jewellary(req, res) {
   try {
-    const result = await Product.find({"product_category_tree": { $regex: new RegExp("Jewellery", 'i')}}).limit(80);
+    const result = await Product.find({"product_category_tree": { $regex: new RegExp("Jewellery", 'i')}}).limit(80).skip(5);
     res.send({ products: result });
   } catch (e) {
     res.send("error");
@@ -97,7 +97,7 @@ async function footwear(req, res) {
 }
 async function watches(req, res) {
   try {
-    const result = await Product.find({"product_category_tree": { $regex: new RegExp("Watches", 'i')}});
+    const result = await Product.find({"product_category_tree": { $regex: new RegExp("Watches", 'i')}}).skip(5);
     res.send({ products: result });
   } catch (e) {
     res.send({"error":e});
