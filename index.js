@@ -39,8 +39,8 @@ const lineItems=products.map((product)=>({
     payment_method_types:["card"],
     line_items:lineItems,
     mode:"payment",
-    success_url:"https://shopeswift.netlify.app/success",
-    cancel_url:"https://shopeswift.netlify.app/cancel",
+    success_url:"https://shopeswift.netlify.app/",
+    cancel_url:"https://shopeswift.netlify.app/",
   })
   res.send({id:session.id})
 })
